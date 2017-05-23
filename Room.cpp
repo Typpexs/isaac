@@ -15,6 +15,17 @@ Room::~Room()
 
 void    Room::initMapWall()
 {
+    Wall tamer(_width);
+
+    std::vector<AObject>::iterator ite = tamer.getWall().begin();
+    std::cout << "marche pas ?" << std::endl;
+    while (ite != tamer.getWall().begin())
+    {
+        std::cout << (*ite).getObject();
+        ite++;
+    }
+    std::cout << std::endl;
+
     _mapWall["top"] = new Wall(_width);
     _mapWall["bot"] = new Wall(_width);
     _mapWall["left"] = new Wall(_height);
@@ -24,7 +35,7 @@ void    Room::initMapWall()
 void    Room::printMap(std::string cote)
 {
     std::vector<AObject>::iterator ite = _mapWall[cote]->getWall().begin();
-    std::cout << "Size : " << _mapWall[cote]->getWall().size() << std::endl;
+    std::cout << "Size : " << _mapWall[cote]->getWall().size() << " -- " << (*ite).getObject() << std::endl;
     while (ite != _mapWall[cote]->getWall().end())
     {
         std::cout << (*ite).getObject();

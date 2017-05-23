@@ -3,8 +3,9 @@
 Wall::Wall(int longueur)
 {
     _isDorable = true;
+    _wall.resize(longueur);
     for (int i=0; i < longueur; ++i)
-        _wall.push_back(Rock());
+        _wall[i] = Rock();
 }
 
 Wall::~Wall() 
