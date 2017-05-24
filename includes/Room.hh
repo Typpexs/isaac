@@ -17,6 +17,10 @@ public:
     int     getNumRoom();
     void    createDorsToRoom(std::string, int);
     void    changeDorsFaceToNewRoom(std::string, int);
+    void    printAllDors();
+    int     getNumberDors();
+    int     getDorsAt(std::string);
+
 private:
     int     _width;
     int     _height;

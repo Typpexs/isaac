@@ -17,7 +17,7 @@ CFLAGS 			+= -Wextra -Wall
 OBJS			= $(SRCS:.cpp=.o)
 
 $(NAME): 		$(OBJS)
-				$(CC) -o $(NAME) $(OBJS) $(CFLAGS)
+				$(CC) -std=c++11 -o $(NAME) $(OBJS) $(CFLAGS)
 
 all: 			$(NAME)
 

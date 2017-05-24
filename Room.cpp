@@ -43,6 +43,35 @@ void    Room::addDorsFace(std::string face)
         _mapWall[face]->addDors(_width/2);
     else
         _mapWall[face]->addDors(_height/2);
+
+}
+
+int    Room::getDorsAt(std::string face)
+{
+    if (face == "top" || face == "bot")
+        return _mapWall[face]->getDors(_width/2)->getDorsTo();
+    else
+        return _mapWall[face]->getDors(_height/2)->getDorsTo();
+}
+
+int    Room::getNumberDors()
+{
+    std::vector<std::string> nameFace;
+    nameFace.push_back("top");
+    nameFace.push_back("right");
+    nameFace.push_back("bot");
+    nameFace.push_back("left");
+
+    int number = 0;
+
+    std::vector<std::string>::iterator ite = nameFace.begin();
+    while (ite != nameFace.end())
+    {
+        if (!getDorableFace((*ite)))
+            number++;
+        ite++;
+    }
+    return number;
 }
 
 void    Room::createDorsToRoom(std::string face, int numRoom)
@@ -51,24 +80,29 @@ void    Room::createDorsToRoom(std::string face, int numRoom)
     {
         _mapWall["bot"]->addDors(_width/2);
         _mapWall["bot"]->getDors(_width/2)->changeDorsTo(numRoom);
+        changeDorableFace("bot", false);
     }
     else if (face == "bot")
     {
         _mapWall["top"]->addDors(_width/2);
         _mapWall["top"]->getDors(_width/2)->changeDorsTo(numRoom);
+        changeDorableFace("top", false);
     }
     else if (face == "right")
     {
         _mapWall["left"]->addDors(_height/2);
         _mapWall["left"]->getDors(_height/2)->changeDorsTo(numRoom);
+        changeDorableFace("left", false);
     }
     else
         _mapWall["right"]->addDors(_height/2);
         _mapWall["right"]->getDors(_height/2)->changeDorsTo(numRoom);
+        changeDorableFace("right", false);
 }
 
 void    Room::changeDorsFaceToNewRoom(std::string face, int numRoom)
 {
+    std::cout << face << std::endl;
     if (face == "top" || face == "bot")
         _mapWall[face]->getDors(_width/2)->changeDorsTo(numRoom);
     else
@@ -105,4 +139,26 @@ void    Room::display()
         }
     }
     printMap("bot");
+}
+
+void    Room::printAllDors()
+{
+    std::vector<std::string> nameFace;
+    nameFace.push_back("top");
+    nameFace.push_back("right");
+    nameFace.push_back("bot");
+    nameFace.push_back("left");
+
+    std::vector<std::string>::iterator ite = nameFace.begin();
+    while (ite != nameFace.end())
+    {
+        if (!getDorableFace((*ite)))
+        {
+            if ((*ite) == "top" || (*ite) == "bot")
+                std::cout << " \t -- Coté : " << (*ite) << "--> " << _mapWall[(*ite)]->getDors(_width/2)->getDorsTo() << std::endl;
+            else
+                std::cout << " \t -- Coté : " << (*ite) << "--> " << _mapWall[(*ite)]->getDors(_height/2)->getDorsTo() << std::endl;
+        }
+        ite++;
+    }
 }
