@@ -9,9 +9,11 @@ public:
     Floor(int, int);
     ~Floor();
 
-    std::vector<std::vector<AObject> >  getFloor();
+    const std::vector<std::vector<AObject*> >  &getFloor() const;
+    int     getFloorAt(int,int);
+    void    printFloor();
 private:
-    std::vector<std::vector<AObject> >  _floor;
+    std::vector<std::vector<AObject*> >  _floor;
     int     _width;
     int     _height;
 

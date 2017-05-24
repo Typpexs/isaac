@@ -7,9 +7,12 @@ class AObject
 {
 public:
     AObject();
+    AObject(const AObject&);
     ~AObject();
 
-    int getObject();
+    int getObject() const;
+
+    AObject     &operator=(const AObject&);
 
 protected:
     int _numObject;

@@ -7,13 +7,20 @@
 class Room
 {
 public:
-    Room(int const, int const);
+    Room(int const, int const, int const);
     ~Room();
 
     void    display();
+    bool    getDorableFace(std::string);
+    void    changeDorableFace(std::string, bool);
+    void    addDorsFace(std::string);
+    int     getNumRoom();
+    void    createDorsToRoom(std::string, int);
+    void    changeDorsFaceToNewRoom(std::string, int);
 private:
     int     _width;
     int     _height;
+    int     _numRoom;
     std::map<std::string, Wall*> _mapWall;
     Floor   *_floor;
 

@@ -8,14 +8,19 @@ class Wall
 {
 public:
     Wall(int);
+    Wall(const Wall&);
     ~Wall();
 
     void                    addDors(int);
     void                    setDorable(bool);
-    std::vector<AObject>    getWall();
+    const std::vector<AObject*>   &getWall() const;
+    bool                    getDorable() const;
+    Dors                    *getDors(int);
+
+    Wall                    &operator=(const Wall&);
 
 private:
-    std::vector<AObject> _wall;
+    std::vector<AObject*> _wall;
     bool                _isDorable;
 };
 
