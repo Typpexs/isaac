@@ -95,9 +95,11 @@ void    Room::createDorsToRoom(std::string face, int numRoom)
         changeDorableFace("left", false);
     }
     else
+    {
         _mapWall["right"]->addDors(_height/2);
         _mapWall["right"]->getDors(_height/2)->changeDorsTo(numRoom);
         changeDorableFace("right", false);
+    }
 }
 
 void    Room::changeDorsFaceToNewRoom(std::string face, int numRoom)

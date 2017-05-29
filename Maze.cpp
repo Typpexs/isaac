@@ -4,7 +4,7 @@ Maze::Maze()
 {
     srand(time(NULL));
     _numRoom = rand()% 10 + 10;
-    _actualRoom = 1;
+    // _actualRoom = 1;
     _RoomPlaced = 0;
 }
 
@@ -27,15 +27,6 @@ void    Maze::printMap()
         (*ite)->printAllDors();
         std::cout << std::endl << " -------- " << std::endl;
     }
-
-    // for (std::map<Room*, std::map<std::string, Room*> >::iterator ite = _mapRoom.begin(); ite != _mapRoom.end(); ite++)
-    // {
-    //     std::cout << "Room " << ite->first->getNumRoom() << " : " << std::endl;
-    //     ite->first->printAllDors();
-    //     // for (std::map<std::string, Room*>::iterator iteRoom = ite->second.begin(); iteRoom != ite->second.end(); iteRoom++)
-    //     //     std::cout << " \t -- Coté : " << iteRoom->first << " --> " << iteRoom->second->getNumRoom() << std::endl;
-    //     std::cout << std::endl << " -------- " << std::endl;
-    // }
 }
 
 bool    Maze::inVector(int act)
@@ -59,13 +50,34 @@ Room    *Maze::getRoom(int act)
 
 void    Maze::checkFace(Room &room)
 {
+    std::map<int, std::string> faceIntFirst;
+    faceIntFirst[1] = "top";
+    faceIntFirst[2] = "right";
+    faceIntFirst[3] = "bot";
+    faceIntFirst[4] = "left";
+    int k = 4;
     std::vector<std::string> nameFace;
-    nameFace.push_back("top");
-    nameFace.push_back("right");
-    nameFace.push_back("bot");
-    nameFace.push_back("left");
 
-    std::vector<std::string>::iterator ite = nameFace.begin();
+    while (k > 0)
+    {
+        int num = rand()% k +1;
+        int i = 1;
+        std::map<int, std::string> maptmp = faceIntFirst;
+        for (std::map<int, std::string>::iterator tamer = faceIntFirst.begin(); tamer != faceIntFirst.end(); tamer++)
+            std::cout << "faceIntFirst : " << tamer->first << " -- " << tamer->second << std::endl;
+        std::cout << "num : " << num << " -- map : " << std::endl;
+        nameFace.push_back(faceIntFirst[num]);
+        faceIntFirst.erase(num);
+        k--;
+    }
+
+for (std::vector<std::string>::iterator ite = nameFace.begin(); ite != nameFace.end(); ite++)
+    std::cout << "face : " << (*ite) << std::endl;
+    // nameFace.push_back("top");
+    // nameFace.push_back("right");
+    // nameFace.push_back("bot");
+    // nameFace.push_back("left");
+
     if (room.getNumberDors() == 4)
         {
             std::map<int, std::string> faceInt;
@@ -76,6 +88,8 @@ void    Maze::checkFace(Room &room)
             int num = rand()% 4 + 1;
             checkFace((*getRoom(room.getDorsAt(faceInt[num]))));
         }
+
+    std::vector<std::string>::iterator ite = nameFace.begin();
     while (ite != nameFace.end())
     {
         if (room.getDorableFace((*ite)))
@@ -89,7 +103,6 @@ void    Maze::checkFace(Room &room)
                 if (inVector(room.getNumRoom()))
                     _vecRoom.push_back(&room);
                 Room *nextRoom = createNewRoom((*ite), room.getNumRoom());
-                // _mapRoom[&room][(*ite)] = nextRoom;
                 if (inVector(nextRoom->getNumRoom()))
                     _vecRoom.push_back(nextRoom);
                 room.changeDorsFaceToNewRoom((*ite), nextRoom->getNumRoom());

@@ -14,7 +14,6 @@ AObject::~AObject() {}
 
 int     AObject::getObject() const
 {
-    // std::cout << "Dans le getObject : " << _numObject << std::endl;
     return _numObject;
 }
 
